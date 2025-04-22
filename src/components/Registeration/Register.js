@@ -85,6 +85,7 @@ function Registration() {
       stream,
       isAdmin: null,
     };
+    console.log("Hello, Iam here!")
     axios
       .post("http://localhost:3001/auth/register", userData)
       .then((result) => {
