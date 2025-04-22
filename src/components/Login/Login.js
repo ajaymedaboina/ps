@@ -24,6 +24,7 @@ function Login() {
       .post("https://ps-30k3.onrender.com/auth", userData)
       .then((result) => {        
         if (result.data === "Success") {
+          console.log("found success")
           navigate("/home");
         } else if (result.data === "Password Incorrect") {
           setErrorMessage("Incorrect Password");
@@ -34,7 +35,7 @@ function Login() {
         }
       })
       .catch((err) => console.log(err));
-      
+
   };
 
   return (

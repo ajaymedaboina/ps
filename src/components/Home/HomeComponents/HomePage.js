@@ -16,28 +16,36 @@ const HomePage = () => {
   const [placementStatus, setPlacementStatus] = useState(null);
 
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      withCredentials : true,
+    }).then((res) => {
       if (!res.data.status) {
         navigate("/");
       }
     });
 
     axios
-      .get("https://ps-30k3.onrender.com/auth/currentUser")
+      .get("https://ps-30k3.onrender.com/auth/currentUser", {
+        withCredentials: true,
+      })
       .then((res) => {
+        console.log(res.data);
         setCurrentUser(res.data.user);
+        console.log("res", res);
         console.log("res dta", res.data);
         console.log('result user -- ', res.data.user);
         fetchPlacementStatus(res.data.user._id);
       })
       .catch((err) => {
-        console.error("Error fetching current user:", err);
+        console.warn("Error fetching current user:", err);
       });
   }, []);
 
   const fetchPlacementStatus = async (userId) => {
     try {
-      const response = await axios.get(`https://ps-30k3.onrender.com/auth/placementStatus/${userId}`);
+      const response = await axios.get(`https://ps-30k3.onrender.com/auth/placementStatus/${userId}`, {
+        withCredentials: true
+      });
       setPlacementStatus(response.data);
     } catch (error) {
       console.error("Error fetching placement status:", error);
