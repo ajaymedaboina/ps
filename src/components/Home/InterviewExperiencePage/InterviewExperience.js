@@ -12,7 +12,7 @@ function InterviewExperience() {
 
   const fetchInterviews = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/auth/fetchinterviewexperience');
+      const response = await axios.get('https://ps-30k3.onrender.com/auth/fetchinterviewexperience');
       setInterviews(response.data.data);
     } catch (error) {
       console.error('Error fetching interview experiences:', error);
@@ -25,7 +25,7 @@ function InterviewExperience() {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
       if (!res.data.status) {
         
       }

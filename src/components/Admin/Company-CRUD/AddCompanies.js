@@ -9,7 +9,7 @@ import Footer from "../AdminReusableComponents/AdminFooter.js";
 import AddCompany from '../Assets/AddCompany.png'
 function AddCompanies() {
   useEffect(() => {
-    axios.get("http://localhost:3001/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
       if (res.data.status) {
       } else {
         navigate("/");
@@ -72,7 +72,7 @@ function AddCompanies() {
     };
 
     axios
-      .post("http://localhost:3001/auth/add-companies", CompanyData)
+      .post("https://ps-30k3.onrender.com/auth/add-companies", CompanyData)
       .then((result) => {
         console.log(result);
         navigate("/companies");

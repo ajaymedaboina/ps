@@ -20,14 +20,14 @@ function Home() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
       if (!res.data.status) {
         navigate("/");
       }
     });
 
     axios
-      .get("http://localhost:3001/auth/currentUser")
+      .get("https://ps-30k3.onrender.com/auth/currentUser")
       .then((res) => {
         setCurrentUser(res.data.user);
       })
@@ -41,7 +41,7 @@ function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/auth/getCompanies"
+          "https://ps-30k3.onrender.com/auth/getCompanies"
         );
         dispatch(getCompanies(response.data));
         console.log(response);

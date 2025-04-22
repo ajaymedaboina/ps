@@ -19,7 +19,7 @@ function Login() {
 
     const userData = { email, password };
     axios
-      .post("http://localhost:3001/auth", userData)
+      .post("https://ps-30k3.onrender.com/auth", userData)
       .then((result) => {        
         if (result.data === "Success") {
           navigate("/home");

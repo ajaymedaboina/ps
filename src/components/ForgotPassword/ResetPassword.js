@@ -11,7 +11,7 @@ function ResetPassword() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/auth/resetPassword/" + token, {
+      .post("https://ps-30k3.onrender.com/auth/resetPassword/" + token, {
         password,
       })
       .then((response) => {

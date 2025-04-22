@@ -11,7 +11,7 @@ function ForgetPassword() {
     e.preventDefault();
     const userData = { email };
     axios
-      .post("http://localhost:3001/auth/forgotpassword", {
+      .post("https://ps-30k3.onrender.com/auth/forgotpassword", {
         email,
       })
       .then((response) => {

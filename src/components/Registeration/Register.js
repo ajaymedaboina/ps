@@ -87,7 +87,7 @@ function Registration() {
     };
     console.log("Hello, Iam here!")
     axios
-      .post("http://localhost:3001/auth/register", userData)
+      .post("https://ps-30k3.onrender.com/auth/register", userData)
       .then((result) => {
         console.log(result);
         navigate("/");
