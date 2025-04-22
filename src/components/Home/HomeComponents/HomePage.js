@@ -26,6 +26,8 @@ const HomePage = () => {
       .get("https://ps-30k3.onrender.com/auth/currentUser")
       .then((res) => {
         setCurrentUser(res.data.user);
+        console.log("res dta", res.data);
+        console.log('result user -- ', res.data.user);
         fetchPlacementStatus(res.data.user._id);
       })
       .catch((err) => {

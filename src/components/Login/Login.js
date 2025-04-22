@@ -18,6 +18,8 @@ function Login() {
     }
 
     const userData = { email, password };
+    console.log("Hello, Iam at login!!!");
+
     axios
       .post("https://ps-30k3.onrender.com/auth", userData)
       .then((result) => {        
@@ -32,6 +34,7 @@ function Login() {
         }
       })
       .catch((err) => console.log(err));
+      
   };
 
   return (

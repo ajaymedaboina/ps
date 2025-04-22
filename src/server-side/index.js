@@ -7,7 +7,7 @@ import { UserRouter } from "./routes.js/user.js";
 const app = express();
 dotenv.config();
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['https://ps-1-aonu.onrender.com/'],
   credentials: true
 
 }))
