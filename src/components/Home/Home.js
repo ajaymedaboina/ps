@@ -21,7 +21,9 @@ function Home() {
 
   useEffect(() => {
     axios.get("https://ps-30k3.onrender.com/auth/verify", {
-      withCredentials: true,
+      headers: {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
     }).then((res) => {
       if (!res.data.status) {
         navigate("/");
@@ -30,7 +32,9 @@ function Home() {
     console.log("going to 3001")
     axios
       .get("https://ps-30k3.onrender.com/auth/currentUser", {
-        withCredentials: true,
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
       })
       .then((res) => {
         setCurrentUser(res.data.user);
@@ -47,7 +51,9 @@ function Home() {
       try {
         const response = await axios.get(
           "https://ps-30k3.onrender.com/auth/getCompanies", {
-            withCredentials: true
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
           }
         );
         dispatch(getCompanies(response.data));

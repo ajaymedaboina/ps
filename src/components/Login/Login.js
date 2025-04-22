@@ -23,13 +23,15 @@ function Login() {
     axios
       .post("https://ps-30k3.onrender.com/auth", userData)
       .then((result) => {        
-        if (result.data === "Success") {
+        if (result.role === "Success") {
           console.log("found success")
           navigate("/home");
-        } else if (result.data === "Password Incorrect") {
+          localStorage.setItem("token", result.token);
+        } else if (result.role === "Password Incorrect") {
           setErrorMessage("Incorrect Password");
         } else if (result.data === "Admin") {
           navigate("/admin");
+          localStorage.setItem("token", result.token)
         } else {
           setErrorMessage("Invalid User");
         }

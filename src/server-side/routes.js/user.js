@@ -86,19 +86,20 @@ router.post("/", async (req, res) => {
     { expiresIn: "3h" }
   );
 
-  localStorage.setItem("token", token);
+  // localStorage.setItem("token", token);
 
-  return res.json(user.isAdmin === "1" ? "Admin" : "Success");
+  return res.json({role : user.isAdmin === "1" ? "Admin" : "Success", token});
 });
 
 // Middleware function to verify the authenticity of a user's token before granting access to protected routes.
 const verifyUser = async (req, res, next) => {
   try {
-    const token = localStorage.getItem("token");
-    if (!token) {
+    const token = req.headers.authorization;
+    if (!token || !token.startsWith("Bearer ")) {
       return res.json({ status: false, message: "No Token" });
     }
-    const decoded = jwt.verify(token, process.env.KEY);
+    
+    const decoded = jwt.verify(token.split(" ")[1], process.env.KEY);
     next();
   } catch (err) {
     return res.json(err);
@@ -115,8 +116,8 @@ router.get("/verify", verifyUser, (req, res) => {
 // It verifies the user's token and retrieves the user's information.
 router.get("/currentUser", verifyUser, async (req, res) => {
   try {
-    const token = localStorage.getItem("token");
-    const decoded = jwt.verify(token, process.env.KEY);
+    const token = req.headers.authorization;
+    const decoded = jwt.verify(token.split(" ")[1], process.env.KEY);
     const userId = decoded._id;
 
     const user = await User.findById(userId);

@@ -17,7 +17,9 @@ const HomePage = () => {
 
   useEffect(() => {
     axios.get("https://ps-30k3.onrender.com/auth/verify", {
-      withCredentials : true,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
     }).then((res) => {
       if (!res.data.status) {
         navigate("/");
@@ -26,7 +28,9 @@ const HomePage = () => {
 
     axios
       .get("https://ps-30k3.onrender.com/auth/currentUser", {
-        withCredentials: true,
+        headers : {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
       })
       .then((res) => {
         console.log(res.data);
@@ -44,7 +48,10 @@ const HomePage = () => {
   const fetchPlacementStatus = async (userId) => {
     try {
       const response = await axios.get(`https://ps-30k3.onrender.com/auth/placementStatus/${userId}`, {
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
       });
       setPlacementStatus(response.data);
     } catch (error) {
@@ -56,7 +63,12 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://ps-30k3.onrender.com/auth/getCompanies"
+          "https://ps-30k3.onrender.com/auth/getCompanies",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
         );
         dispatch(getCompanies(response.data));
       } catch (err) {
