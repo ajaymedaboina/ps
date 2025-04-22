@@ -22,16 +22,17 @@ function Login() {
 
     axios
       .post("https://ps-30k3.onrender.com/auth", userData)
-      .then((result) => {        
-        if (result.role === "Success") {
+      .then((result) => {   
+        console.log("login result", result)     
+        if (result.data.role === "Success") {
           console.log("found success")
           navigate("/home");
-          localStorage.setItem("token", result.token);
-        } else if (result.role === "Password Incorrect") {
+          localStorage.setItem("token", result.data.token);
+        } else if (result === "Password Incorrect") {
           setErrorMessage("Incorrect Password");
-        } else if (result.data === "Admin") {
+        } else if (result.data.role === "Admin") {
           navigate("/admin");
-          localStorage.setItem("token", result.token)
+          localStorage.setItem("token", result.data.token)
         } else {
           setErrorMessage("Invalid User");
         }

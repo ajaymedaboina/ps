@@ -11,7 +11,11 @@ import AdminHome from "../AdminHome.js";
 function AdminDashboard() {
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      headers: {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
       if (res.data.status) {
       } else {
         navigate("/");
