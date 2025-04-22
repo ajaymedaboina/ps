@@ -12,7 +12,11 @@ import "../Admin-CSS/UpdateCompany.css";
 
 function UpdateCompany() {
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      headers : {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
       if (res.data.status) {
       } else {
         navigate("/");
@@ -56,7 +60,11 @@ function UpdateCompany() {
     };
 
     axios
-      .put("https://ps-30k3.onrender.com/auth/updatecompany/" + id, CompanyData)
+      .put("https://ps-30k3.onrender.com/auth/updatecompany/" + id, CompanyData, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       .then((result) => {
         dispatch(
           updateCompany({

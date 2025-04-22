@@ -20,7 +20,11 @@ function AddExperience() {
   const [alertColor, setAlertColor] = useState('');
 
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      headers : {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
       if (res.data.status) {
       } else {
         navigate("/interviewexperience");
@@ -42,7 +46,11 @@ function AddExperience() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://ps-30k3.onrender.com/auth/add-interview', formData);
+      const response = await axios.post('https://ps-30k3.onrender.com/auth/add-interview', formData, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+      });
       console.log(response.data);
       
       setFormData({

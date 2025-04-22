@@ -16,7 +16,11 @@ function CompanyPage() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://ps-30k3.onrender.com/auth/getCompanies/${id}`
+          `https://ps-30k3.onrender.com/auth/getCompanies/${id}`, {
+            headers : {
+              Authorization : `Bearer ${localStorage.getItem("token")}`
+            }
+          }
         );
         dispatch(getCompanies(response.data));
       } catch (err) {
@@ -27,14 +31,22 @@ function CompanyPage() {
   }, [dispatch, id]);
 
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      headers : {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
       if (!res.data.status) {
         navigate("/");
       }
     });
 
     axios
-      .get("https://ps-30k3.onrender.com/auth/currentUser")
+      .get("https://ps-30k3.onrender.com/auth/currentUser", {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       .then((res) => {
         setCurrentUser(res.data.user);
       })
@@ -46,12 +58,20 @@ function CompanyPage() {
   const handleApply = async (companyId, userId) => {
     try {
       const response = await axios.post(
-        `https://ps-30k3.onrender.com/auth/applyCompany/${userId}/${id}`
+        `https://ps-30k3.onrender.com/auth/applyCompany/${userId}/${id}`, {
+          headers : {
+            Authorization : `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
       alert(response.data.message);
 
       const updatedResponse = await axios.get(
-        `https://ps-30k3.onrender.com/auth/getCompanies/${id}`
+        `https://ps-30k3.onrender.com/auth/getCompanies/${id}`, {
+          headers : {
+            Authorization : `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
       dispatch(getCompanies(updatedResponse.data));
       navigate("/scheduledInterview");

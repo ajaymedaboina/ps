@@ -16,14 +16,22 @@ function CompanyListing() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      headers : {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
       if (!res.data.status) {
         navigate("/");
       }
     });
 
     axios
-      .get("https://ps-30k3.onrender.com/auth/currentUser")
+      .get("https://ps-30k3.onrender.com/auth/currentUser", {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       .then((res) => {
         setCurrentUser(res.data.user);
       })
@@ -37,7 +45,11 @@ function CompanyListing() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://ps-30k3.onrender.com/auth/getCompanies"
+          "https://ps-30k3.onrender.com/auth/getCompanies", {
+            headers : {
+              Authorization : `Bearer ${localStorage.getItem("token")}`
+            }
+          }
         );
         dispatch(getCompanies(response.data));
         console.log(response);

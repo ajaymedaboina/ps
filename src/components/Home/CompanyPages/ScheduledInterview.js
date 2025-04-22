@@ -10,14 +10,22 @@ function ScheduledInterview() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      headers : {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
       if (!res.data.status) {
         navigate("/");
       }
     });
 
     axios
-      .get("https://ps-30k3.onrender.com/auth/currentUser")
+      .get("https://ps-30k3.onrender.com/auth/currentUser", {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       .then((res) => {
         setCurrentUser(res.data.user);
       })
@@ -33,7 +41,11 @@ function ScheduledInterview() {
           const userId = currentUser._id;
 
           const response = await axios.get(
-            `https://ps-30k3.onrender.com/auth/scheduledInterviews/${userId}`
+            `https://ps-30k3.onrender.com/auth/scheduledInterviews/${userId}`, {
+              headers : {
+                Authorization : `Bearer ${localStorage.getItem("token")}`
+              }
+            }
           );
           setScheduledInterviews(response.data.scheduledInterviews);
         } catch (error) {

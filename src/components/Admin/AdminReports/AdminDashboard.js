@@ -34,7 +34,11 @@ function AdminDashboard() {
 
   useEffect(() => {
     axios
-      .get("https://ps-30k3.onrender.com/auth/getUsers")
+      .get("https://ps-30k3.onrender.com/auth/getUsers", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       .then((response) => {
         setUsers(response.data.data);
         setOriginalUsers(response.data.data);

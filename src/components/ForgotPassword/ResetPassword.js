@@ -13,6 +13,10 @@ function ResetPassword() {
     axios
       .post("https://ps-30k3.onrender.com/auth/resetPassword/" + token, {
         password,
+      }, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
       })
       .then((response) => {
         if (response.data.status) {

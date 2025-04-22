@@ -13,6 +13,10 @@ function ForgetPassword() {
     axios
       .post("https://ps-30k3.onrender.com/auth/forgotpassword", {
         email,
+      }, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
       })
       .then((response) => {
         if (response.data.status) {

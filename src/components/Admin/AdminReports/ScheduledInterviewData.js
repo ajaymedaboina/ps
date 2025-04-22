@@ -10,7 +10,11 @@ function ScheduledInterviewData() {
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        const response = await axios.get('https://ps-30k3.onrender.com/auth/companyApplicants');
+        const response = await axios.get('https://ps-30k3.onrender.com/auth/companyApplicants', {
+          headers : {
+            Authorization : `Bearer ${localStorage.getItem("token")}`
+          }
+        });
         setCompanyData(response.data);
       } catch (error) {
         console.error('Error fetching company data:', error);
@@ -27,6 +31,10 @@ function ScheduledInterviewData() {
         userId,
         companyId,
         status
+      }, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
       });
 
       console.log(response.data);

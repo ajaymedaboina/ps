@@ -12,7 +12,11 @@ function Companycrud() {
 
   const navigate=useNavigate()
   useEffect(() => {
-    axios.get("https://ps-30k3.onrender.com/auth/verify").then((res) => {
+    axios.get("https://ps-30k3.onrender.com/auth/verify", {
+      headers : {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
       if (res.data.status) {
       } else {
         navigate("/");
@@ -23,7 +27,11 @@ function Companycrud() {
   const companies = useSelector((state) => state.companies.companies);
   const handleDelete = (id) => {
     axios
-      .delete("https://ps-30k3.onrender.com/auth/deletecompany/" + id)
+      .delete("https://ps-30k3.onrender.com/auth/deletecompany/" + id, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       .then((res) => {
         dispatch(deleteCompany({ id }));
       })
@@ -34,7 +42,11 @@ function Companycrud() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://ps-30k3.onrender.com/auth/getCompanies"
+          "https://ps-30k3.onrender.com/auth/getCompanies", {
+            headers : {
+              Authorization : `Bearer ${localStorage.getItem("token")}`
+            }
+          }
         );
         dispatch(getCompanies(response.data));
         console.log(response);
